@@ -33,11 +33,11 @@
         <div class="col-md-2 bg-white">
             <ul class="nav flex-column nav-pills ">
                 <!-- сделать видимым только для админа -->
-                <div sec:authorize="hasAuthority('ROLE_ADMIN')">
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin">Admin</a>
-                </li>
-                </div>
+
+                    <li class="nav-item">
+                        <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" href="/admin">Admin</a>
+                    </li>
+
                 <li class="nav-item">
                     <a class="nav-link active" href="/user">User</a>
                 </li>
