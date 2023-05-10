@@ -23,7 +23,6 @@ public class UserController {
     public String showUser(Model model, Principal principal) {
         User user = userService.findUserByUsername(principal.getName());
         model.addAttribute("user", userService.getUser(user.getId()));
-        model.addAttribute("titleTable", "Страница пользователя: ");
         return "user";
     }
 }
