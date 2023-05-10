@@ -21,37 +21,26 @@
                 <a class="nav-item text-white nav-link active mr-sm-2 " href="/logout">Logout</a>
             </nav>
         </div>
-
     </div>
     <div class="row ">
         <div class="col-md-12 bg-light">
             <br/>
         </div>
     </div>
-
     <div class="row ">
         <div class="col-md-2 bg-white">
             <ul class="nav flex-column nav-pills ">
                 <!-- сделать видимым только для админа -->
-
-                    <li class="nav-item">
-                        <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" href="/admin">Admin</a>
-                    </li>
-
                 <li class="nav-item">
+                    <a sec:authorize access="hasRole('ROLE_ADMIN')" class="nav-link" href="/admin">Admin</a>
                     <a class="nav-link active" href="/user">User</a>
                 </li>
             </ul>
         </div>
         <div class="col-md-10  ">
-            <h2>
-                User information-page
-            </h2>
-
+            <h2>User information-page</h2>
             <div class="card">
-                <h5 class="card-header">
-                    About user
-                </h5>
+                <h5 class="card-header">About user</h5>
                 <div class="card-body">
                     <table class="table table-hover bg-white ">
                         <thead>
@@ -65,19 +54,16 @@
                         </thead>
                         <tbody>
                         <tr th:object="${user}">
-
                             <td th:text="${user.getId()}"></td>
                             <td th:text="${user.getName()}"></td>
                             <td th:text="${user.getLast_name()}"></td>
                             <td th:text="${user.getUsername()}"></td>
                             <td th:text="${user.getRolesInString()}"></td>
-                            </td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
