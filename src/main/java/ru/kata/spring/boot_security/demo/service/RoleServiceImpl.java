@@ -21,7 +21,7 @@ public class RoleServiceImpl implements RoleService {
         return roleRepository.findById(id).get();
     }
     @Transactional(readOnly = true)
-    public List<Role> getAllRoles() {
+    public List<Role> listAllRoles() {
         return roleRepository.findAll();
     }
     @Transactional

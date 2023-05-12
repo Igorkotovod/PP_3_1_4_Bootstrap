@@ -31,8 +31,8 @@ public class AdminController {
 
     @GetMapping
     public String showAllUsers(Model model) {
-        model.addAttribute("users", userService.getAllUsers());
-        List<Role> listOfRoles = roleService.getAllRoles();
+        model.addAttribute("users", userService.listAllUsers());
+        List<Role> listOfRoles = roleService.listAllRoles();
         model.addAttribute("listOfRoles", listOfRoles);
         return "admin2";
     }
@@ -45,7 +45,7 @@ public class AdminController {
 
     @GetMapping("/new")
     public String addNewUser(Model model, @ModelAttribute("user") User user) {
-        List<Role> roles = roleService.getAllRoles();
+        List<Role> roles = roleService.listAllRoles();
         model.addAttribute("rolesAdd", roles);
         return "new";
     }
@@ -59,7 +59,7 @@ public class AdminController {
     @GetMapping("/{id}/editUser")
     public String edit(Model model, @PathVariable("id") Long id) {
         model.addAttribute("user", userService.getUser(id));
-        List<Role> roles = roleService.getAllRoles();
+        List<Role> roles = roleService.listAllRoles();
         model.addAttribute("rolesAdd", roles);
         return "edit";
     }
