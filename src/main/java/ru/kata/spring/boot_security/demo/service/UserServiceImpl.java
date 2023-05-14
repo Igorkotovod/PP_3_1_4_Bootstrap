@@ -12,6 +12,7 @@ import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
@@ -36,8 +37,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Transactional(readOnly = true)
-    public User getUser(Long id) {
-        return userRepository.findById(id).get();
+    public User getUser(Long id)  throws UsernameNotFoundException {
+        Optional<User> userOptional = userRepository.findById(id);
+        if (userOptional.isPresent()) {
+            return userOptional.get();
+        } else {
+            throw new UsernameNotFoundException(String.format("Пользователь под номером '%s' не найден!", id));
+        }
     }
 
     @Transactional
@@ -60,7 +66,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
         if (user == null) {
-            throw new UsernameNotFoundException("Пользователь не найден!");
+            throw new UsernameNotFoundException(String.format("Пользователь '%s' не найден!", username));
         }
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(), user.getPassword(), user.getAuthorities());
