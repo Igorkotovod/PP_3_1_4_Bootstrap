@@ -32,6 +32,9 @@ public class User implements UserDetails {
     @Column(name = "last_name")
     private String last_name;
 
+    @Column(name = "age")
+    private Integer age;
+
     @Column(name = "email", nullable = false, unique = true)
     private String username;
 
@@ -46,9 +49,10 @@ public class User implements UserDetails {
 
     public User() {
     }
-    public User(String name, String last_name, String username, String password, Set<Role> roles) {
+    public User(String name, String last_name, Integer age, String username, String password, Set<Role> roles) {
         this.name = name;
         this.last_name = last_name;
+        this.age = age;
         this.username = username;
         this.password = password;
         this.roles = roles;
@@ -90,7 +94,12 @@ public class User implements UserDetails {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
-
+    public Integer getAge() {
+        return age;
+    }
+    public void setAge(Integer age) {
+        this.age = age;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -112,15 +121,17 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", surname='" + last_name + '\'' +
+                ", last_name='" + last_name + '\'' +
+                ", age=" + age +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", roles=" + roles.toString() +
+                ", roles=" + roles +
                 '}';
     }
 
