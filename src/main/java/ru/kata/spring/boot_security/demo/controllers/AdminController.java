@@ -32,7 +32,7 @@ public class AdminController {
     }
 
     @GetMapping
-    public String listUser(User user, Model model, Principal principal) {
+    public String listUser(Model model, Principal principal) {
         model.addAttribute("user", userService.findUserByUsername(principal.getName()));
         model.addAttribute("listRoles", roleService.listAllRoles());
         model.addAttribute("listUser", userService.listAllUsers());
