@@ -49,6 +49,7 @@
       </div>
 
       <div class="tab-content" id="nav-tabContent">
+
         <!--USERLIST PAGE-->
         <div class="tab-pane fade show active" id="user-list" aria-labelledby="user-list-tab" role="tabpanel">
           <div class="card">
@@ -81,6 +82,7 @@
                     <a type="button" class="btn btn-primary"
                        data-bs-toggle="modal"
                        th:data-bs-target="${'#edit' + user.id}">Edit</a>
+
                     <!--EDIT FORM-->
                     <div class="modal fade" th:id="${'edit' + user.id}" data-bs-backdrop="static"
                          data-bs-keyboard="false" tabindex="-1"
@@ -100,12 +102,12 @@
                               <input class="form-control" type="text" th:name="id"
                                      th:value="${user.id}" id="modal-id" disabled>
                               <label class="form-label"
-                                     for="modal-username">Username:</label>
+                                     for="modal-username">Email (username)</label>
                               <input class="form-control" type="text" th:name="username"
                                      th:value="${user.username}" id="modal-username"
                                      required/>
                               <label class="form-label"
-                                     for="modal-password">Password:</label>
+                                     for="modal-password">Password</label>
                               <input class="form-control" type="password"
                                      th:name="password" id="modal-password"
                                      required/>
@@ -119,14 +121,12 @@
                               <input class="form-control" type="text" th:name="last_name"
                                      th:value="${user.last_name}" id="modal-last_name"
                                      required/>
-                              <label class="form-label" for="modal-age">Age:</label>
+                              <label class="form-label" for="modal-age">Age</label>
                               <input class="form-control" type="text" th:name="age"
                                      th:value="${user.age}" id="modal-age" required/>
-                              <label class="form-label" for="modal-email">Email:</label>
-                              <input class="form-control" type="text" th:name="username"
-                                     th:value="${user.username}" id="modal-email" required/>
+
                               <label class="form-label" for="modal-roles"
-                                     th:value="${user.roles}">Roles:</label>
+                                     th:value="${user.roles}">Roles</label>
                               <select class="form-select" id="modal-roles" th:name="roles"
                                       multiple="multiple" size="2" aria-label="role">
                                 <option th:each="role : ${roles}"
@@ -152,6 +152,7 @@
                   <td>
                     <a type="button" class="btn btn-danger"
                        data-bs-toggle="modal" th:data-bs-target="${'#delete' + user.id}">Delete</a>
+
                     <!--DELETE FORM-->
                     <div class="modal fade" th:id="${'delete' + user.id}" data-bs-backdrop="static"
                          data-bs-keyboard="false" tabindex="-1"
@@ -221,7 +222,21 @@
             </div>
           </div>
         </div>
-        <!--NEW USER PAGE-->
+
+        <!--NEW USER PAGE
+
+        <div class="modal fade" th:id="${'edit' + user.id}" data-bs-backdrop="static"
+             data-bs-keyboard="false" tabindex="-1"
+             aria-labelledby="editModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Edit user</h5>
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body text-center fw-bold">
+-->
         <div class="tab-pane fade" id="new-user" aria-labelledby="new-user-tab" role="tabpanel">
           <div class="card">
             <div class="card-header">
@@ -229,39 +244,34 @@
             </div>
             <div class="card-body text-center">
               <form th:method="POST" th:action="@{/admin/}" th:object="${user}">
-                <label class="form-label" for="username">Username:</label>
+                <label class="form-label" for="username">Email (username)</label>
                 <input class="form-control" type="text" th:field="*{username}" id="username" required/>
                 <div class="form-text text-danger" th:if="${#fields.hasErrors('username')}"
                      th:errors="*{username}"></div>
 
-                <label class="form-label" for="password">Password:</label>
+                <label class="form-label" for="password">Password</label>
                 <input class="form-control" type="password" th:field="*{password}" id="password"
                        required/>
                 <div class="form-text text-danger" th:if="${#fields.hasErrors('password')}"
                      th:errors="*{password}"></div>
 
-                <label class="form-label" for="first_name">First name:</label>
+                <label class="form-label" for="first_name">First name</label>
                 <input class="form-control" type="text" th:field="*{name}" id="first_name"
                        required/>
                 <div class="form-text text-danger" th:if="${#fields.hasErrors('name')}"
                      th:errors="*{name}"></div>
 
-                <label class="form-label" for="last_name">Last name:</label>
+                <label class="form-label" for="last_name">Last name</label>
                 <input class="form-control" type="text" th:field="*{last_name}" id="last_name" required/>
                 <div class="form-text text-danger" th:if="${#fields.hasErrors('last_name')}"
                      th:errors="*{last_name}"></div>
 
-                <label class="form-label" for="age">Age:</label>
+                <label class="form-label" for="age">Age</label>
                 <input class="form-control" type="text" th:field="*{age}" id="age" required/>
                 <div class="form-text text-danger" th:if="${#fields.hasErrors('age')}"
                      th:errors="*{age}"></div>
 
-                <label class="form-label" for="email">Email:</label>
-                <input class="form-control" type="text" th:field="*{username}" id="email" required/>
-                <div class="form-text text-danger" th:if="${#fields.hasErrors('username')}"
-                     th:errors="*{username}"></div>
-
-                <label class="form-label" for="roles">Roles:</label>
+                <label class="form-label" for="roles">Roles</label>
                 <select class="form-select" id="roles" th:name="roles" multiple>
                   <option th:each="role : ${roles}" th:value="${role.name}"
                           th:text="${role.toString()}"></option>
