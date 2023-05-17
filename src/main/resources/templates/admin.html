@@ -50,7 +50,9 @@
 
       <div class="tab-content" id="nav-tabContent">
 
-        <!--USERLIST PAGE-->
+
+        <!--Список всех пользователей-->
+
         <div class="tab-pane fade show active" id="user-list" aria-labelledby="user-list-tab" role="tabpanel">
           <div class="card">
             <div class="card-header">
@@ -84,7 +86,8 @@
                        th:data-bs-target="${'#edit' + user.id}">Edit</a>
 
 
-                    <!--EDIT FORM-->
+                    <!--EDIT-->
+
                     <div class="modal fade" th:id="${'edit' + user.id}" data-bs-backdrop="static"
                          data-bs-keyboard="false" tabindex="-1"
                          aria-labelledby="editModalLabel" aria-hidden="true">
@@ -126,14 +129,16 @@
                               <input class="form-control" type="text" th:name="age"
                                      th:value="${user.age}" id="modal-age" required/>
 
-                              <label class="form-label" for="modal-roles"
-                                     th:value="${user.roles}">Roles</label>
-                              <select class="form-select" id="modal-roles" th:name="roles"
-                                      multiple="multiple" size="2" aria-label="role">
-                                <option th:each="role : ${roles}"
-                                        th:value="${role.name}"
-                                        th:text="${role.toString()}"
-                                        th:selected="${user.roles.contains(role)}"></option>
+                              <label class="form-label" for="roles">Roles</label>
+                              <select th:name="roles"
+                                      th:value="*{roles}" multiple
+                                      class="form-control form-control-sm"
+                                      id="rolesAdd" name="roles" size="2"
+                                      required>
+                                <option th:each="role: ${listRoles}"
+                                        th:value="${role.id}"
+                                        th:text="${role.toString()}">
+                                </option>
                               </select>
                             </form>
                           </div>
@@ -154,7 +159,8 @@
                        data-bs-toggle="modal" th:data-bs-target="${'#delete' + user.id}">Delete</a>
 
 
-                    <!--DELETE FORM-->
+                    <!--DELETE-->
+
                     <div class="modal fade" th:id="${'delete' + user.id}" data-bs-backdrop="static"
                          data-bs-keyboard="false" tabindex="-1"
                          aria-labelledby="deleteModalLabel" aria-hidden="true">
@@ -195,7 +201,7 @@
                                      th:value="${user.roles}">Roles</label>
                               <select class="form-select" id="delete-roles" name="roles"
                                       multiple disabled>
-                                <option th:each="role : ${roles}"
+                                <option th:each="role : ${listRoles}"
                                         th:value="${role.name}"
                                         th:text="${role.toString()}"
                                         th:selected="${user.roles.contains(role)}"></option>
@@ -221,8 +227,8 @@
           </div>
         </div>
 
-        <!--NEW USER PAGE-->
 
+        <!--NEW USER-->
 
         <div class="tab-pane fade" id="new-user" aria-labelledby="new-user-tab" role="tabpanel">
           <div class="card">
@@ -231,7 +237,8 @@
 
             </div>
             <div class="card-body text-center">
-              <form th:method="POST" th:action="@{/admin/}" th:object="${user}">
+              <form th:method="POST" th:action="@{/admin}"  th:object="${newUser}">
+
                 <label class="form-label" for="username">Email (username)</label>
                 <input class="form-control" type="text" th:field="*{username}" id="username" required/>
                 <div class="form-text text-danger" th:if="${#fields.hasErrors('username')}"
@@ -260,13 +267,18 @@
                      th:errors="*{age}"></div>
 
                 <label class="form-label" for="roles">Roles</label>
-                <select class="form-select" id="roles" th:name="roles" multiple>
-                  <option th:each="role : ${roles}" th:value="${role.name}"
-                          th:text="${role.toString()}"></option>
+                <select th:name="roles"
+                        th:value="*{roles}" multiple
+                        class="form-control form-control-sm"
+                        id="roles" name="roles" size="2"
+                        required>
+                  <option th:each="role: ${listRoles}"
+                          th:value="${role.id}"
+                          th:text="${role.toString()}">
+                  </option>
                 </select>
 
                 <input class="btn btn-success" type="submit" value="Add new user"/>
-
               </form>
             </div>
           </div>
@@ -277,8 +289,10 @@
     </div>
   </div>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous"></script>
+
 </body>
 </html>

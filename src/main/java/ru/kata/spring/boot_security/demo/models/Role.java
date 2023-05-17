@@ -2,13 +2,16 @@ package ru.kata.spring.boot_security.demo.models;
 
 import org.springframework.security.core.GrantedAuthority;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -22,7 +25,7 @@ public class Role implements GrantedAuthority {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "roles", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private Set<User> users;
 
     public Role() {
@@ -60,16 +63,18 @@ public class Role implements GrantedAuthority {
     public String getAuthority() {
         return getName();
     }
+
     @Override
     public String toString() {
-        return name;
+        return name.replaceFirst("ROLE_", "");
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Role role = (Role) o;
-        return name != null ? name.equals(role.name) : role.name == null;
+        return Objects.equals(name, role.name);
     }
     @Override
     public int hashCode() {

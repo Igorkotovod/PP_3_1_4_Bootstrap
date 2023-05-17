@@ -18,6 +18,7 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 import java.security.Principal;
 import java.util.List;
 
+
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -33,6 +34,7 @@ public class AdminController {
 
     @GetMapping
     public String listUser(Model model, Principal principal) {
+        model.addAttribute("newUser", new User());
         model.addAttribute("user", userService.findUserByUsername(principal.getName()));
         model.addAttribute("listRoles", roleService.listAllRoles());
         model.addAttribute("listUser", userService.listAllUsers());
@@ -42,14 +44,15 @@ public class AdminController {
     @GetMapping("/{id}")
     public String showUser(Model model, @PathVariable("id") Long id) {
         model.addAttribute("user", userService.getUser(id));
-        return "user";
+        return "redirect:/user";
     }
 
     @GetMapping("/new")
-    public String addNewUser(Model model, @ModelAttribute("user") User user) {
+    public String addNewUser(Model model) {
         List<Role> roles = roleService.listAllRoles();
-        model.addAttribute("rolesAdd", roles);
-        return "new";
+        model.addAttribute("roles", roles);
+        model.addAttribute("user", new User());
+        return "redirect:/";
     }
 
     @PostMapping()
@@ -63,7 +66,7 @@ public class AdminController {
         model.addAttribute("user", userService.getUser(id));
         List<Role> roles = roleService.listAllRoles();
         model.addAttribute("rolesAdd", roles);
-        return "edit";
+        return "redirect:/admin";
     }
 
     @PatchMapping("/{id}")
