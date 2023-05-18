@@ -15,8 +15,13 @@
         <div class="col-md-12 bg-dark text-white">
             <nav class="navbar navbar-dark bg">
                 <span class="navbar-text">
+                    <b>
                   <tr th:object="${user}"
-                      th:text="${user.getUsername()} +' with roles: '+ ${user.getRolesInString()}">
+                      th:text="${user.getUsername()} ">
+                  </tr>
+                    </b>
+                    <tr th:object="${user}"
+                        th:text="'  with roles:  ' + ${user.getRolesInString()}">
                   </tr>
                 </span>
                 <a class="nav-item text-white nav-link active mr-md-n1" href="/logout">Logout</a>
