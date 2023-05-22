@@ -20,10 +20,12 @@ public class RoleServiceImpl implements RoleService {
     public Role findRoleById(Long id) {
         return roleRepository.findById(id).get();
     }
+
     @Transactional(readOnly = true)
     public List<Role> listAllRoles() {
         return roleRepository.findAll();
     }
+
     @Transactional
     public void addRole(Role role) {
         roleRepository.save(role);
