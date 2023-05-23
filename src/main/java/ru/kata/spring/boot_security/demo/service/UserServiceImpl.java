@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl (UserRepository userRepository, @Lazy PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, @Lazy PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Transactional(readOnly = true)
-    public User getUser(Long id)  throws UsernameNotFoundException {
+    public User getUser(Long id) throws UsernameNotFoundException {
         Optional<User> userOptional = userRepository.findById(id);
         if (userOptional.isPresent()) {
             return userOptional.get();
